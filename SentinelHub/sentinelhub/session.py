@@ -11,7 +11,6 @@ from qgis.core import QgsMessageLog
 from requests_oauthlib import OAuth2Session
 
 from ..exceptions import SessionError
-from .client import get_error_message
 
 
 class Session:
@@ -81,6 +80,8 @@ class Session:
                     token_url=self.oauth_url, client_id=self.client_id, client_secret=self.client_secret
                 )
         except requests.HTTPError as exception:
+            from ..sentinelhub.client import get_error_message
+
             error_msg = get_error_message(exception)
             raise SessionError(error_msg) from exception
         except OAuth2Error as exception:
