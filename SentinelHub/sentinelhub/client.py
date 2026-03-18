@@ -1,6 +1,7 @@
 """
 Download client for Sentinel Hub service
 """
+
 from xml.etree import ElementTree
 
 import requests
@@ -110,18 +111,9 @@ def get_error_message(exception):
 
         # Provide meaningful message when server response is empty
         if not server_message:
-            if status_code == 401:
-                server_message = "Unauthorized. Please check your credentials (Client ID and Client Secret)"
-            elif status_code == 403:
-                server_message = "Forbidden. Your credentials may not have permission to access this resource"
-            elif status_code == 404:
-                server_message = "Not found. Please check your service URL"
-            elif status_code >= 500:
-                server_message = "Server error. The service may be temporarily unavailable"
-            else:
-                server_message = "No additional details provided by server"
+            server_message = "No additional details provided by server"
 
-        return message + f'{server_message}'
+        return message + f"{server_message}"
 
     return message + str(exception)
 
